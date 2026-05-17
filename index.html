@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SPEDISCI CON NOI / Ship With Us / Envía Con Nosotros</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f7fa;display:flex;justify-content:center;padding:2rem 1rem;min-height:100vh}
+.wrap{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);padding:2rem;width:100%;max-width:640px}
+
+/* SELEZIONE LINGUA */
+
+.lang-logo{font-size:40px;margin-bottom:1rem}
+.lang-title{font-size:22px;font-weight:800;color:#1a1a2e;margin-bottom:6px}
+.lang-sub{font-size:14px;color:#6b7280;margin-bottom:2rem}
+.lang-btns{display:flex;flex-direction:column;gap:12px;max-width:320px;margin:0 auto}
+.lang-btn{display:flex;align-items:center;gap:14px;padding:14px 20px;border:2px solid #e5e7eb;border-radius:12px;background:#fff;cursor:pointer;transition:all .15s;font-size:16px;font-weight:600;color:#374151}
+.lang-btn:hover{border-color:#185FA5;background:#f0f7ff;color:#185FA5}
+.lang-btn .flag{font-size:28px}
+.lang-btn .lang-name{text-align:left}
+.lang-btn .lang-native{font-size:12px;color:#9ca3af;font-weight:400}
+
+/* STEPPER */
+.stepper{display:flex;align-items:flex-start;margin-bottom:2rem}
+.step{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.sc{width:30px;height:30px;border-radius:50%;border:2px solid #e5e7eb;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#9ca3af}
+.step.active .sc{border-color:#185FA5;background:#185FA5;color:#fff}
+.step.done .sc{border-color:#16a34a;background:#16a34a;color:#fff}
+.sl{font-size:10px;color:#9ca3af;text-align:center;font-weight:500;line-height:1.3}
+.step.active .sl{color:#185FA5;font-weight:700}
+.step.done .sl{color:#16a34a}
+.sline{flex:1;height:2px;background:#e5e7eb;margin-top:14px}
+.sline.done{background:#16a34a}
+.panel{display:none}.panel.show{display:block}
+h2{font-size:19px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.sub{font-size:13px;color:#6b7280;margin-bottom:1.5rem;line-height:1.5}
+.lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin:1.25rem 0 8px}
+.lbl:first-of-type{margin-top:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:.875rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:.875rem}
+.g1{margin-bottom:.875rem}
+.fd{display:flex;flex-direction:column;gap:4px}
+.fd label{font-size:13px;color:#6b7280}
+.fd input,.fd select,.fd textarea{padding:9px 11px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:14px;color:#1a1a2e;outline:none;width:100%;background:#fff;font-family:inherit}
+.fd input:focus,.fd select:focus,.fd textarea:focus{border-color:#185FA5}
+.fd textarea{resize:vertical;min-height:72px}
+.opt{font-size:11px;color:#9ca3af;margin-left:4px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{padding:6px 13px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;color:#6b7280;transition:all .15s}
+.tab:hover{border-color:#185FA5;color:#185FA5;background:#f0f7ff}
+.tab.active{border-color:#185FA5;background:#EBF3FC;color:#185FA5}
+.crow{display:flex;align-items:center;gap:8px;margin:.5rem 0 1rem;cursor:pointer}
+.crow input[type=checkbox]{width:17px;height:17px;accent-color:#185FA5;flex-shrink:0;cursor:pointer}
+.crow label{font-size:14px;color:#374151;cursor:pointer}
+.coll{display:none}.coll.show{display:block}
+.ipill{font-size:12px;color:#1e40af;background:#EBF3FC;border-radius:6px;padding:7px 11px;line-height:1.5;margin-bottom:.875rem}
+.warn{font-size:13px;color:#92400e;background:#FEF3C7;border-radius:8px;padding:8px 12px;margin-bottom:12px;display:none}
+.err{font-size:13px;color:#991b1b;background:#FEE2E2;border-radius:8px;padding:8px 12px;margin-bottom:10px;display:none}
+.rbox{background:#f8fafc;border:1.5px solid #e5e7eb;border-radius:12px;padding:1.25rem;display:none;margin-top:1rem;margin-bottom:1rem}
+.rbox.show{display:block}
+.rtit{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:10px}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f0f0f0}
+.prow:last-child{border-bottom:none}
+.plbl{font-size:13px;color:#6b7280;flex:1}
+.pval{font-size:13px;font-weight:700;color:#1a1a2e;margin-left:10px;white-space:nowrap}
+.ptot{display:flex;justify-content:space-between;align-items:baseline;padding-top:12px;margin-top:4px;border-top:2px solid #e5e7eb}
+.ptlbl{font-size:14px;font-weight:700;color:#1a1a2e}
+.ptval{font-size:26px;font-weight:800;color:#185FA5}
+.pnote{font-size:11px;color:#9ca3af;margin-top:8px;line-height:1.5}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:#EBF3FC;color:#185FA5;margin-left:6px;vertical-align:middle}
+.recap{background:#f8fafc;border:1.5px solid #e5e7eb;border-radius:10px;padding:1rem 1.25rem;margin-bottom:12px}
+.recap-t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#185FA5;margin-bottom:8px}
+.rrow{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#374151;gap:12px}
+.rrow span:first-child{color:#9ca3af;flex-shrink:0}
+.rrow span:last-child{text-align:right}
+.rtot{display:flex;justify-content:space-between;font-size:15px;font-weight:800;color:#185FA5;padding-top:8px;margin-top:6px;border-top:2px solid #bdd4ef}
+.pay-box{border:1.5px solid #e5e7eb;border-radius:10px;padding:1.25rem;margin-bottom:1rem}
+.pay-tit{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.pay-amt{font-size:32px;font-weight:800;color:#185FA5;margin:12px 0}
+.pay-note{font-size:12px;color:#9ca3af;line-height:1.6;margin-top:.75rem}
+.btn-row{display:flex;gap:10px;margin-top:1rem}
+.btn{flex:1;padding:11px;background:#185FA5;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.btn:hover{background:#0C447C}
+.btn-out{flex:1;padding:11px;background:transparent;color:#185FA5;border:1.5px solid #185FA5;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.btn-out:hover{background:#EBF3FC}
+.btn-calc{width:100%;padding:12px;background:#185FA5;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px}
+.btn-calc:hover{background:#0C447C}
+.btn-next{display:none;width:100%;padding:12px;background:#185FA5;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-next:hover{background:#0C447C}
+.btn-invia{width:100%;padding:13px;background:#16a34a;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}
+.btn-invia:hover{background:#15803d}
+.btn-invia:disabled{background:#86efac;cursor:not-allowed}
+.success{text-align:center;padding:2rem 0}
+.sico{width:68px;height:68px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:32px}
+.stit{font-size:21px;font-weight:800;color:#15803d;margin-bottom:8px}
+.stxt{font-size:14px;color:#6b7280;line-height:1.7}
+.ok-box{background:#f0fdf4;border-radius:10px;padding:1rem;margin:1.25rem 0;text-align:left}
+.ok-lbl{font-size:13px;color:#15803d;font-weight:700;margin-bottom:4px}
+.ok-val{font-size:13px;color:#374151}
+hr.div{border:none;border-top:1.5px solid #f0f0f0;margin:1.25rem 0}
+.dog-box{background:#fff8ed;border:1.5px solid #fed7aa;border-radius:10px;padding:1rem 1.25rem;margin:1rem 0;display:none}
+.dog-box.show{display:block}
+.dog-tit{font-size:12px;font-weight:700;color:#9a3412;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.dog-sub{font-size:12px;color:#9a3412;margin-bottom:12px;line-height:1.5}
+.dog-head{display:grid;grid-template-columns:1fr 72px 88px 32px;gap:8px;margin-bottom:4px}
+.dog-head span{font-size:11px;color:#9ca3af;font-weight:600}
+.dog-row{display:grid;grid-template-columns:1fr 72px 88px 32px;gap:8px;align-items:center;margin-bottom:6px}
+.dog-row input{padding:7px 8px;border:1.5px solid #e5e7eb;border-radius:7px;font-size:13px;color:#1a1a2e;outline:none;width:100%;background:#fff}
+.dog-row input:focus{border-color:#ea580c}
+.btn-add{background:#fff7ed;border:1.5px dashed #fb923c;border-radius:8px;padding:7px;width:100%;font-size:13px;color:#ea580c;cursor:pointer;font-weight:600;margin-top:4px}
+.btn-add:hover{background:#ffedd5}
+.btn-del{background:none;border:none;color:#ef4444;font-size:20px;cursor:pointer;padding:0;line-height:1;font-weight:700}
+.dog-tot{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#9a3412;padding-top:8px;border-top:1px solid #fed7aa;margin-top:6px}
+/* lang switcher in alto */
+.lang-bar{display:flex;justify-content:flex-end;margin-bottom:1.25rem;gap:8px}
+.lang-pill{padding:5px 12px;border:1.5px solid #e5e7eb;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;background:#fff;color:#6b7280;transition:all .15s}
+.lang-pill:hover{border-color:#185FA5;color:#185FA5}
+.lang-pill.active{border-color:#185FA5;background:#EBF3FC;color:#185FA5}
+@media(max-width:500px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}.g3 .fd:last-child{grid-column:span 2}.sl{font-size:9px}.dog-head{grid-template-columns:1fr 56px 76px 28px}.dog-row{grid-template-columns:1fr 56px 76px 28px}.lang-btns{max-width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- BARRA CAMBIO LINGUA (appare dopo selezione) -->
+<div class="lang-bar" id="lang-bar" style="display:flex">
+  <button type="button" class="lang-pill active" id="pill-it" onclick="cambiaLingua('it')">&#127470;&#127481; IT</button>
+  <button type="button" class="lang-pill" id="pill-en" onclick="cambiaLingua('en')">&#127468;&#127463; EN</button>
+  <button type="button" class="lang-pill" id="pill-es" onclick="cambiaLingua('es')">&#127466;&#127480; ES</button>
+</div>
+
+
+
+<!-- STEPPER -->
+<div class="stepper" id="stepper">
+  <div class="step active" id="s1"><div class="sc" id="sc1">1</div><div class="sl" id="sl1">-</div></div>
+  <div class="sline" id="l1"></div>
+  <div class="step" id="s2"><div class="sc" id="sc2">2</div><div class="sl" id="sl2">-</div></div>
+  <div class="sline" id="l2"></div>
+  <div class="step" id="s3"><div class="sc" id="sc3">3</div><div class="sl" id="sl3">-</div></div>
+  <div class="sline" id="l3"></div>
+  <div class="step" id="s4"><div class="sc" id="sc4">4</div><div class="sl" id="sl4">-</div></div>
+  <div class="sline" id="l4"></div>
+  <div class="step" id="s5"><div class="sc" id="sc5">5</div><div class="sl" id="sl5">-</div></div>
+  <div class="sline" id="l5"></div>
+  <div class="step" id="s6"><div class="sc" id="sc6">6</div><div class="sl" id="sl6">-</div></div>
+  <div class="sline" id="l6"></div>
+  <div class="step" id="s7"><div class="sc" id="sc7">7</div><div class="sl" id="sl7">-</div></div>
+</div>
+
+<!-- STEP 1 -->
+<div class="panel show" id="p1">
+  <h2 id="t-h1"></h2>
+  <p class="sub" id="t-sub1"></p>
+  <p class="lbl" id="t-lbl-dest"></p>
+  <div class="tabs">
+    <button type="button" class="tab active" id="tab-italia" onclick="setZona('italia')">&#127470;&#127481; Italia</button>
+    <button type="button" class="tab" id="tab-ue" onclick="setZona('ue')">&#127466;&#127482; Europa UE</button>
+    <button type="button" class="tab" id="tab-eu_non_ue" onclick="setZona('eu_non_ue')" id="t-tab-en"></button>
+    <button type="button" class="tab" id="tab-us_ca" onclick="setZona('us_ca')">&#127482;&#127480; USA/CA</button>
+    <button type="button" class="tab" id="tab-resto" onclick="setZona('resto')" id="t-tab-re"></button>
+  </div>
+  <p class="lbl"><span id="t-lbl-dim"></span> <span class="opt" id="t-lbl-opt"></span></p>
+  <div class="g3">
+    <div class="fd"><label id="t-lung"></label><input type="number" id="lung" min="1" placeholder="30"></div>
+    <div class="fd"><label id="t-larg"></label><input type="number" id="larg" min="1" placeholder="20"></div>
+    <div class="fd"><label id="t-alt"></label><input type="number" id="alt" min="1" placeholder="15"></div>
+  </div>
+  <p class="lbl" id="t-lbl-peso"></p>
+  <div class="g2">
+    <div class="fd"><label id="t-peso-lbl"></label><input type="number" id="peso" min="0.1" step="0.1" placeholder="2.5"></div>
+    <div class="fd"><label id="t-valore-lbl"></label><input type="number" id="valore" min="0" placeholder="150" oninput="updAssic()"></div>
+  </div>
+  <div class="crow" onclick="togChk('chk-assic','box-assic',updAssic)">
+    <input type="checkbox" id="chk-assic">
+    <label for="chk-assic" id="t-assic-chk"></label>
+  </div>
+  <div class="coll" id="box-assic">
+    <div class="ipill" id="assic-info"></div>
+  </div>
+  <div class="warn" id="warn-vol"></div>
+  <div class="err" id="err1"></div>
+  <button type="button" class="btn-calc" id="t-btn-calc" onclick="calcola()"></button>
+  <div class="rbox" id="res1">
+    <div class="rtit"><span id="t-prev-tit"></span> <span class="badge" id="r-zona"></span></div>
+    <div id="r-rows"></div>
+    <div class="ptot">
+      <span class="ptlbl" id="r-tlbl"></span>
+      <span class="ptval" id="r-tval"></span>
+    </div>
+    <p class="pnote" id="r-note"></p>
+  </div>
+  <button type="button" class="btn-next" id="btn-n1" onclick="goStep(2)"></button>
+</div>
+
+<!-- STEP 2 -->
+<div class="panel" id="p2">
+  <h2 id="t-h2"></h2>
+  <p class="sub" id="t-sub2"></p>
+  <div class="g2">
+    <div class="fd"><label id="t-m-nome-lbl"></label><input type="text" id="m-nome" placeholder="Mario Rossi"></div>
+    <div class="fd"><label id="t-m-az-lbl"></label><input type="text" id="m-azienda"></div>
+  </div>
+  <div class="g2">
+    <div class="fd"><label id="t-m-cf-lbl"></label><input type="text" id="m-cf" placeholder="RSSMRA80A01H501Z"></div>
+    <div class="fd"><label id="t-m-tel-lbl"></label><input type="tel" id="m-tel" placeholder="+39 333 1234567"></div>
+  </div>
+  <div class="g1 fd"><label id="t-m-email-lbl"></label><input type="email" id="m-email" placeholder="mario@email.com"></div>
+  <hr class="div">
+  <p class="lbl" id="t-m-addr-lbl"></p>
+  <div class="g1 fd"><label id="t-via-lbl"></label><input type="text" id="m-via" placeholder="Via Roma 12"></div>
+  <div class="g3">
+    <div class="fd"><label id="t-cap-lbl"></label><input type="text" id="m-cap" placeholder="70132" maxlength="10"></div>
+    <div class="fd"><label id="t-city-lbl"></label><input type="text" id="m-citta" placeholder="Bari"></div>
+    <div class="fd"><label id="t-prov-lbl"></label><input type="text" id="m-prov" placeholder="BA" maxlength="5"></div>
+  </div>
+  <div class="g1 fd"><label id="t-country-lbl"></label><input type="text" id="m-paese" value="Italia"></div>
+  <hr class="div">
+  <div class="crow" onclick="togChk('chk-ritiro','box-ritiro',null)">
+    <input type="checkbox" id="chk-ritiro">
+    <label for="chk-ritiro" id="t-ritiro-chk"></label>
+  </div>
+  <div class="coll" id="box-ritiro">
+    <p class="lbl" id="t-ritiro-lbl"></p>
+    <div class="g1 fd"><label id="t-rvia-lbl"></label><input type="text" id="r-via"></div>
+    <div class="g3">
+      <div class="fd"><label id="t-rcap-lbl"></label><input type="text" id="r-cap" maxlength="10"></div>
+      <div class="fd"><label id="t-rcity-lbl"></label><input type="text" id="r-citta"></div>
+      <div class="fd"><label id="t-rprov-lbl"></label><input type="text" id="r-prov" maxlength="5"></div>
+    </div>
+    <div class="g1 fd"><label id="t-rcountry-lbl"></label><input type="text" id="r-paese" value="Italia"></div>
+    <div class="g2">
+      <div class="fd"><label id="t-rref-lbl"></label><input type="text" id="r-ref"></div>
+      <div class="fd"><label id="t-rtel-lbl"></label><input type="tel" id="r-tel"></div>
+    </div>
+  </div>
+  <div class="err" id="err2"></div>
+  <div class="btn-row">
+    <button type="button" class="btn-out" id="t-back2" onclick="goStep(1)"></button>
+    <button type="button" class="btn" id="t-next2" onclick="valida(2)"></button>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="panel" id="p3">
+  <h2 id="t-h3"></h2>
+  <p class="sub" id="t-sub3"></p>
+  <div class="g2">
+    <div class="fd"><label id="t-d-nome-lbl"></label><input type="text" id="d-nome"></div>
+    <div class="fd"><label id="t-d-az-lbl"></label><input type="text" id="d-azienda"></div>
+  </div>
+  <div class="g2">
+    <div class="fd"><label id="t-d-tel-lbl"></label><input type="tel" id="d-tel"></div>
+    <div class="fd"><label id="t-d-email-lbl"></label><input type="email" id="d-email"></div>
+  </div>
+  <hr class="div">
+  <p class="lbl" id="t-d-addr-lbl"></p>
+  <div class="g1 fd"><label id="t-dvia-lbl"></label><input type="text" id="d-via"></div>
+  <div class="g3">
+    <div class="fd"><label id="t-dcap-lbl"></label><input type="text" id="d-cap" maxlength="10"></div>
+    <div class="fd"><label id="t-dcity-lbl"></label><input type="text" id="d-citta"></div>
+    <div class="fd"><label id="t-dprov-lbl"></label><input type="text" id="d-prov" maxlength="5"></div>
+  </div>
+  <div class="g1 fd"><label id="t-dcountry-lbl"></label><input type="text" id="d-paese"></div>
+  <hr class="div">
+  <div class="crow" onclick="togChk('chk-fatt','box-fatt',null)">
+    <input type="checkbox" id="chk-fatt">
+    <label for="chk-fatt" id="t-fatt-chk"></label>
+  </div>
+  <div class="coll" id="box-fatt">
+    <p class="lbl" id="t-fatt-lbl"></p>
+    <div class="g2">
+      <div class="fd"><label id="t-f-nome-lbl"></label><input type="text" id="f-nome"></div>
+      <div class="fd"><label id="t-f-cf-lbl"></label><input type="text" id="f-cf"></div>
+    </div>
+    <div class="g1 fd"><label id="t-fvia-lbl"></label><input type="text" id="f-via"></div>
+    <div class="g3">
+      <div class="fd"><label id="t-fcap-lbl"></label><input type="text" id="f-cap" maxlength="10"></div>
+      <div class="fd"><label id="t-fcity-lbl"></label><input type="text" id="f-citta"></div>
+      <div class="fd"><label id="t-fprov-lbl"></label><input type="text" id="f-prov" maxlength="5"></div>
+    </div>
+    <div class="g2">
+      <div class="fd"><label id="t-fcountry-lbl"></label><input type="text" id="f-paese" value="Italia"></div>
+      <div class="fd"><label id="t-femail-lbl"></label><input type="email" id="f-email"></div>
+    </div>
+    <div class="g1 fd"><label id="t-fsdi-lbl"></label><input type="text" id="f-sdi"></div>
+  </div>
+  <div class="err" id="err3"></div>
+  <div class="btn-row">
+    <button type="button" class="btn-out" id="t-back3" onclick="goStep(2)"></button>
+    <button type="button" class="btn" id="t-next3" onclick="valida(3)"></button>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="panel" id="p4">
+  <h2 id="t-h4"></h2>
+  <p class="sub" id="t-sub4"></p>
+  <div class="g1 fd"><label id="t-mc-desc-lbl"></label><textarea id="mc-desc"></textarea></div>
+  <div class="g2">
+    <div class="fd">
+      <label id="t-mc-cat-lbl"></label>
+      <select id="mc-cat">
+        <option value="" id="t-cat-sel"></option>
+        <option id="t-cat1"></option><option id="t-cat2"></option><option id="t-cat3"></option>
+        <option id="t-cat4"></option><option id="t-cat5"></option><option id="t-cat6"></option>
+        <option id="t-cat7"></option><option id="t-cat8"></option><option id="t-cat9"></option>
+        <option id="t-cat10"></option><option id="t-cat11"></option><option id="t-cat12"></option>
+        <option id="t-cat13"></option><option id="t-cat14"></option>
+      </select>
+    </div>
+    <div class="fd"><label id="t-mc-qty-lbl"></label><input type="number" id="mc-qty" min="1" placeholder="3"></div>
+  </div>
+  <div class="g1 fd"><label id="t-mc-note-lbl"></label><textarea id="mc-note" style="min-height:60px"></textarea></div>
+  <div class="dog-box" id="dog-box">
+    <div class="dog-tit" id="t-dog-tit"></div>
+    <p class="dog-sub" id="t-dog-sub"></p>
+    <div class="dog-head">
+      <span id="t-dog-h1"></span><span id="t-dog-h2"></span><span id="t-dog-h3"></span><span></span>
+    </div>
+    <div id="dog-rows"></div>
+    <button type="button" class="btn-add" id="t-dog-add" onclick="addDogRow()"></button>
+    <div class="dog-tot" id="dog-tot" style="display:none">
+      <span id="t-dog-tot-lbl"></span>
+      <span id="dog-tot-val"></span>
+    </div>
+  </div>
+  <div class="err" id="err4"></div>
+  <div class="btn-row">
+    <button type="button" class="btn-out" id="t-back4" onclick="goStep(3)"></button>
+    <button type="button" class="btn" id="t-next4" onclick="valida(4)"></button>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="panel" id="p5">
+  <h2 id="t-h5"></h2>
+  <p class="sub" id="t-sub5"></p>
+  <div id="rc-prev" class="recap"></div>
+  <div id="rc-mit" class="recap"></div>
+  <div id="rc-rit" class="recap" style="display:none"></div>
+  <div id="rc-dest" class="recap"></div>
+  <div id="rc-fatt" class="recap" style="display:none"></div>
+  <div id="rc-merce" class="recap"></div>
+  <div class="err" id="err5"></div>
+  <div class="btn-row">
+    <button type="button" class="btn-out" id="t-back5" onclick="goStep(4)"></button>
+    <button type="button" class="btn" id="t-next5" onclick="goStep(6)"></button>
+  </div>
+</div>
+
+<!-- STEP 6 -->
+<div class="panel" id="p6">
+  <h2 id="t-h6"></h2>
+  <p class="sub" id="t-sub6"></p>
+  <div class="g1 fd"><label id="t-rc-email-lbl"></label><input type="email" id="rc-email"></div>
+  <div class="g1 fd"><label id="t-rc-tel-lbl"></label><input type="tel" id="rc-tel"></div>
+  <div class="g1 fd">
+    <label id="t-rc-pref-lbl"></label>
+    <select id="rc-pref">
+      <option value="email" id="t-pref1"></option>
+      <option value="sms" id="t-pref2"></option>
+      <option value="entrambi" id="t-pref3"></option>
+    </select>
+  </div>
+  <div class="g1 fd"><label id="t-rc-note-lbl"></label><input type="text" id="rc-note"></div>
+  <div class="err" id="err6"></div>
+  <div class="btn-row">
+    <button type="button" class="btn-out" id="t-back6" onclick="goStep(5)"></button>
+    <button type="button" class="btn" id="t-next6" onclick="validaRecapiti()"></button>
+  </div>
+</div>
+
+<!-- STEP 7 -->
+<div class="panel" id="p7">
+  <h2 id="t-h7"></h2>
+  <p class="sub" id="t-sub7"></p>
+  <div class="pay-box">
+    <div class="pay-tit" id="t-pay-tit"></div>
+    <div class="pay-amt" id="pay-amt"></div>
+    <div id="pay-desc" style="font-size:13px;color:#6b7280;margin-bottom:12px"></div>
+    <div id="esente-msg" style="display:none;font-size:12px;color:#047857;background:#d1fae5;border-radius:8px;padding:8px 12px;margin-bottom:12px"></div>
+    <div style="background:#f8fafc;border:1.5px solid #e5e7eb;border-radius:10px;padding:1rem;margin-bottom:1rem">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:8px" id="t-docs-to"></div>
+      <div style="font-size:14px;color:#374151;margin-bottom:4px">&#128231; <span id="conf-email"></span></div>
+      <div style="font-size:14px;color:#374151;margin-bottom:4px">&#128241; <span id="conf-tel"></span></div>
+      <div style="font-size:12px;color:#9ca3af" id="conf-pref"></div>
+    </div>
+    <button type="button" class="btn-invia" id="btn-invia" onclick="inviaRichiesta()"></button>
+    <p class="pay-note" id="t-pay-note"></p>
+  </div>
+  <div class="err" id="err7"></div>
+  <div class="btn-row">
+    <button type="button" class="btn-out" id="t-back7" onclick="goStep(6)"></button>
+  </div>
+</div>
+
+<!-- SUCCESSO -->
+<div class="panel" id="p-ok">
+  <div class="success">
+    <div class="sico">&#10004;&#65039;</div>
+    <div class="stit" id="t-ok-tit"></div>
+    <p class="stxt" id="t-ok-txt"></p>
+    <div class="ok-box">
+      <div class="ok-lbl" id="t-ok-lbl"></div>
+      <div class="ok-val" id="ok-email"></div>
+    </div>
+    <button type="button" class="btn" style="margin-top:.5rem;max-width:260px;display:inline-block" id="t-ok-btn" onclick="location.reload()"></button>
+  </div>
+</div>
+
+</div>
+<script>
+var FORMSPREE_ID = 'xwvzeaqw';
+var zona = 'italia';
+var prev = {};
+var stepNow = 1;
+var dogCount = 0;
+var lingua = 'it';
+
+/* ======== TRADUZIONI ======== */
+var TR = {
+  it: {
+    step:['Preventivo','Mittente','Destinatario','Merce','Riepilogo','Recapiti','Invia'],
+    h1:'&#128230; Calcola il preventivo', sub1:'Scegli destinazione, inserisci peso e dimensioni per ottenere subito il prezzo.',
+    lbl_dest:'Destinazione', lbl_dim:'Dimensioni pacco', lbl_opt:'(opzionali)',
+    lung:'Lunghezza (cm)', larg:'Larghezza (cm)', alt:'Altezza (cm)',
+    lbl_peso:'Peso e valore', peso_lbl:'Peso reale (kg) *', valore_lbl:'Valore merce (\u20ac)',
+    assic_chk:'Aggiungi assicurazione sul valore merce',
+    assic_info:'Inserisci il valore merce per vedere il costo.',
+    warn_vol:'&#9888; Peso volumetrico superiore \u2014 tariffa calcolata sul volumetrico.',
+    btn_calc:'Calcola preventivo', prev_tit:'Preventivo', btn_next1:'Procedi con la richiesta \u2192',
+    tab_en:'EU non UE', tab_re:'&#127758; Resto del mondo',
+    h2:'&#128100; Dati del mittente', sub2:'Chi spedisce il pacco. Usati anche per la fatturazione.',
+    m_nome:'Nome e cognome *', m_az:'Ragione sociale (opz.)', m_cf:'Codice fiscale / P.IVA *',
+    m_tel:'Telefono *', m_email:'Email *', m_addr:'Indirizzo mittente',
+    via:'Via e numero civico *', cap:'CAP *', city:'Citt\u00e0 *', prov:'Prov.', country:'Paese *',
+    ritiro_chk:'Il luogo di ritiro \u00e8 diverso dall\'indirizzo del mittente',
+    ritiro_lbl:'Indirizzo di ritiro', rref:'Referente (opz.)', rtel:'Tel. referente (opz.)',
+    h3:'&#128205; Dati del destinatario', sub3:'A chi deve essere consegnato il pacco.',
+    d_nome:'Nome e cognome *', d_az:'Ragione sociale (opz.)', d_tel:'Telefono *', d_email:'Email (opz.)',
+    d_addr:'Indirizzo di consegna',
+    fatt_chk:'I dati di fatturazione sono diversi da quelli del mittente',
+    fatt_lbl:'Dati di fatturazione', f_nome:'Intestatario *', f_cf:'CF / P.IVA *',
+    femail:'Email fatturazione (opz.)', fsdi:'Codice SDI / PEC (opz.)',
+    h4:'&#128218; Dettaglio merce', sub4:'Indica il contenuto del pacco. Necessario per sdoganamento e assicurazione.',
+    mc_desc:'Descrizione contenuto *', mc_cat:'Categoria merce *', mc_qty:'Quantit\u00e0 pezzi (opz.)',
+    mc_note:'Note speciali (opz.)',
+    cat_sel:'— Seleziona —',
+    cats:['Abbigliamento e tessuti','Alimentari (non deperibili)','Articoli sportivi','Automotive / Ricambi','Cosmetici e cura persona','Documenti / Cartaceo','Elettronica e informatica','Gioielli e accessori','Giocattoli','Libri e materiale stampato','Macchinari e attrezzature','Mobili e arredamento','Strumenti musicali','Altro'],
+    dog_tit:'&#127963; Dichiarazione doganale', dog_sub:'Obbligatoria per spedizioni fuori UE. Inserisci ogni articolo con descrizione, quantit\u00e0 e valore unitario in euro.',
+    dog_h1:'Descrizione articolo', dog_h2:'Qt\u00e0', dog_h3:'Valore unit. (\u20ac)', dog_add:'+ Aggiungi articolo', dog_tot:'Valore totale dichiarato',
+    h5:'&#9989; Riepilogo', sub5:'Controlla tutti i dati prima di inviare la richiesta.',
+    h6:'&#128241; Recapiti per pagamento e documenti', sub6:'Inserisci i recapiti a cui inviare il link di pagamento e la lettera di vettura.',
+    rc_email:'Email *', rc_tel:'Numero di cellulare *', rc_pref:'Preferenza invio documenti', rc_note:'Note (opz.)',
+    pref1:'Solo email', pref2:'Solo SMS/WhatsApp', pref3:'Email + SMS/WhatsApp',
+    h7:'&#128229; Invia la richiesta', sub7:'Controlla l\'importo e invia. Ti contatteremo ai recapiti indicati.',
+    pay_tit:'Importo preventivato', docs_to:'Documenti inviati a',
+    btn_invia:'&#128229; Invia richiesta di spedizione',
+    pay_note:'Riceverai il link di pagamento e la lettera di vettura ai recapiti indicati entro poche ore.',
+    esente:'&#9989; Operazione esente IVA art. 9 D.P.R. 633/72 \u2014 Esportazione',
+    ok_tit:'Richiesta inviata!', ok_txt:'Abbiamo ricevuto la tua richiesta.\nTi contatteremo entro poche ore per confermare il ritiro e le istruzioni di pagamento.',
+    ok_lbl:'&#128231; Conferma inviata a:', ok_btn:'Nuova richiesta',
+    back:'\u2190 Indietro', next:'Avanti \u2192', go_send:'Vai all\'invio \u2192',
+    err_peso:'Inserisci il peso del pacco.', err_assic:'Inserisci il valore merce per aggiungere l\'assicurazione.',
+    err_mnome:'Inserisci nome e cognome del mittente.', err_mcf:'Inserisci codice fiscale o partita IVA.',
+    err_mtel:'Inserisci il telefono del mittente.', err_memail:'Inserisci l\'email del mittente.',
+    err_mvia:'Inserisci l\'indirizzo del mittente.', err_mcap:'Inserisci il CAP.', err_mcity:'Inserisci la citt\u00e0.',
+    err_rvia:'Inserisci l\'indirizzo di ritiro.', err_rcap:'Inserisci il CAP del luogo di ritiro.', err_rcity:'Inserisci la citt\u00e0 del luogo di ritiro.',
+    err_dnome:'Inserisci nome e cognome del destinatario.', err_dtel:'Inserisci il telefono del destinatario.',
+    err_dvia:'Inserisci l\'indirizzo di consegna.', err_dcap:'Inserisci il CAP di destinazione.', err_dcity:'Inserisci la citt\u00e0 di destinazione.', err_dpaese:'Inserisci il paese di destinazione.',
+    err_fnome:'Inserisci l\'intestatario per la fatturazione.', err_fcf:'Inserisci CF/P.IVA per la fatturazione.',
+    err_fvia:'Inserisci l\'indirizzo di fatturazione.', err_fcap:'Inserisci il CAP di fatturazione.', err_fcity:'Inserisci la citt\u00e0 di fatturazione.',
+    err_desc:'Inserisci la descrizione del contenuto.', err_cat:'Seleziona la categoria della merce.', err_dog:'Inserisci almeno un articolo nella dichiarazione doganale.',
+    err_rcemail:'Inserisci l\'email per il pagamento.', err_rctel:'Inserisci il numero di cellulare.',
+    err_send:'Errore nell\'invio. Riprova o contattaci a preventivi@dhlstore.express',
+    err_conn:'Errore di connessione. Controlla la connessione e riprova.',
+    tot:'Totale', tot_iva:'Totale (IVA assic. inclusa)',
+    note:{italia:'Prezzi IVA inclusa. Consegna 24-48h lavorative.',ue:'Prezzi IVA inclusa. Consegna 3-5 giorni lavorativi.',eu_non_ue:'Esente IVA art.9. Consegna 5-8 gg. Dazi a carico destinatario.',us_ca:'Esente IVA art.9. Consegna 7-10 giorni.',resto:'Esente IVA art.9. Consegna 10-21 giorni.'},
+    rc_prev:'&#128230; Preventivo', rc_mit:'&#128100; Mittente', rc_rit:'&#128663; Luogo ritiro', rc_dest:'&#128205; Destinatario', rc_fatt:'&#128197; Fatturazione', rc_merce:'&#128218; Merce', rc_dog:'Lista doganale', rc_dog_tot:'Totale dichiarato',
+    inv_email:'Invio: ', send_loading:'Invio in corso...',
+    r_desc:'Descrizione', r_cat:'Categoria', r_qty:'Quantit\u00e0', r_note:'Note', r_tel:'Telefono', r_email:'Email', r_addr:'Indirizzo', r_azienda:'Azienda', r_cf:'CF/P.IVA', r_ref:'Referente', r_fatt_email:'Email fatt.', r_sdi:'SDI/PEC', r_consegna:'Consegna', r_pref:'Preferenza', r_rc_email:'Email recapito', r_rc_tel:'Cellulare',
+    assic_imp:'Assicurazione imponibile', assic_iva:'IVA 22% assicurazione', suppl:'Suppl. oltre 30kg'
+  },
+  en: {
+    step:['Quote','Sender','Recipient','Goods','Summary','Contacts','Send'],
+    h1:'&#128230; Get a quote', sub1:'Choose destination, enter weight and dimensions to get the price instantly.',
+    lbl_dest:'Destination', lbl_dim:'Package dimensions', lbl_opt:'(optional)',
+    lung:'Length (cm)', larg:'Width (cm)', alt:'Height (cm)',
+    lbl_peso:'Weight & value', peso_lbl:'Actual weight (kg) *', valore_lbl:'Goods value (\u20ac)',
+    assic_chk:'Add insurance on goods value',
+    assic_info:'Enter the goods value to see the insurance cost.',
+    warn_vol:'&#9888; Volumetric weight exceeds actual weight \u2014 rate calculated on volumetric.',
+    btn_calc:'Calculate quote', prev_tit:'Quote', btn_next1:'Continue with request \u2192',
+    tab_en:'EU non-EU', tab_re:'&#127758; Rest of the world',
+    h2:'&#128100; Sender details', sub2:'Who is shipping the package. Also used for billing.',
+    m_nome:'Full name *', m_az:'Company name (opt.)', m_cf:'Tax ID / VAT number *',
+    m_tel:'Phone *', m_email:'Email *', m_addr:'Sender address',
+    via:'Street and number *', cap:'Postal code *', city:'City *', prov:'State/Prov.', country:'Country *',
+    ritiro_chk:'Pickup location is different from sender address',
+    ritiro_lbl:'Pickup address', rref:'Contact person (opt.)', rtel:'Contact phone (opt.)',
+    h3:'&#128205; Recipient details', sub3:'Who will receive the package.',
+    d_nome:'Full name *', d_az:'Company name (opt.)', d_tel:'Phone *', d_email:'Email (opt.)',
+    d_addr:'Delivery address',
+    fatt_chk:'Billing details are different from sender',
+    fatt_lbl:'Billing details', f_nome:'Name / Company *', f_cf:'Tax ID / VAT *',
+    femail:'Billing email (opt.)', fsdi:'SDI code / PEC (opt.)',
+    h4:'&#128218; Goods details', sub4:'Describe the package contents. Required for customs and insurance.',
+    mc_desc:'Content description *', mc_cat:'Goods category *', mc_qty:'Number of pieces (opt.)',
+    mc_note:'Special notes (opt.)',
+    cat_sel:'— Select —',
+    cats:['Clothing & textiles','Food (non-perishable)','Sports goods','Automotive / Parts','Cosmetics & personal care','Documents / Printed matter','Electronics & IT','Jewelry & accessories','Toys','Books & printed material','Machinery & equipment','Furniture','Musical instruments','Other'],
+    dog_tit:'&#127963; Customs declaration', dog_sub:'Required for shipments outside the EU. List each item with description, quantity and unit value in euros.',
+    dog_h1:'Item description', dog_h2:'Qty', dog_h3:'Unit value (\u20ac)', dog_add:'+ Add item', dog_tot:'Total declared value',
+    h5:'&#9989; Summary', sub5:'Review all details before sending your request.',
+    h6:'&#128241; Payment & document contacts', sub6:'Enter the contacts to receive the payment link and waybill.',
+    rc_email:'Email *', rc_tel:'Mobile number *', rc_pref:'Document delivery preference', rc_note:'Notes (opt.)',
+    pref1:'Email only', pref2:'SMS/WhatsApp only', pref3:'Email + SMS/WhatsApp',
+    h7:'&#128229; Send request', sub7:'Check the amount and send. We will contact you at the provided details.',
+    pay_tit:'Quoted amount', docs_to:'Documents sent to',
+    btn_invia:'&#128229; Send shipment request',
+    pay_note:'You will receive the payment link and waybill at the indicated contacts within a few hours.',
+    esente:'&#9989; VAT exempt under art. 9 D.P.R. 633/72 \u2014 Export',
+    ok_tit:'Request sent!', ok_txt:'We have received your shipment request.\nWe will contact you within a few hours to confirm pickup and payment instructions.',
+    ok_lbl:'&#128231; Confirmation sent to:', ok_btn:'New request',
+    back:'\u2190 Back', next:'Next \u2192', go_send:'Go to send \u2192',
+    err_peso:'Please enter the package weight.', err_assic:'Please enter the goods value to add insurance.',
+    err_mnome:'Please enter sender full name.', err_mcf:'Please enter tax ID or VAT number.',
+    err_mtel:'Please enter sender phone.', err_memail:'Please enter sender email.',
+    err_mvia:'Please enter sender address.', err_mcap:'Please enter postal code.', err_mcity:'Please enter city.',
+    err_rvia:'Please enter pickup address.', err_rcap:'Please enter pickup postal code.', err_rcity:'Please enter pickup city.',
+    err_dnome:'Please enter recipient full name.', err_dtel:'Please enter recipient phone.',
+    err_dvia:'Please enter delivery address.', err_dcap:'Please enter delivery postal code.', err_dcity:'Please enter delivery city.', err_dpaese:'Please enter destination country.',
+    err_fnome:'Please enter billing name.', err_fcf:'Please enter billing tax ID.',
+    err_fvia:'Please enter billing address.', err_fcap:'Please enter billing postal code.', err_fcity:'Please enter billing city.',
+    err_desc:'Please describe the package contents.', err_cat:'Please select a goods category.', err_dog:'Please add at least one item to the customs declaration.',
+    err_rcemail:'Please enter the email for payment.', err_rctel:'Please enter the mobile number.',
+    err_send:'Send error. Please retry or contact us at preventivi@dhlstore.express',
+    err_conn:'Connection error. Please check your connection and retry.',
+    tot:'Total', tot_iva:'Total (insurance VAT included)',
+    note:{italia:'Prices include VAT. Delivery 24-48 working hours.',ue:'Prices include VAT. Delivery 3-5 working days.',eu_non_ue:'VAT exempt art.9. Delivery 5-8 days. Customs duties payable by recipient.',us_ca:'VAT exempt art.9. Delivery 7-10 days.',resto:'VAT exempt art.9. Delivery 10-21 days.'},
+    rc_prev:'&#128230; Quote', rc_mit:'&#128100; Sender', rc_rit:'&#128663; Pickup location', rc_dest:'&#128205; Recipient', rc_fatt:'&#128197; Billing', rc_merce:'&#128218; Goods', rc_dog:'Customs list', rc_dog_tot:'Total declared',
+    inv_email:'Send: ', send_loading:'Sending...',
+    r_desc:'Description', r_cat:'Category', r_qty:'Quantity', r_note:'Notes', r_tel:'Phone', r_email:'Email', r_addr:'Address', r_azienda:'Company', r_cf:'Tax ID/VAT', r_ref:'Contact', r_fatt_email:'Billing email', r_sdi:'SDI/PEC', r_consegna:'Delivery', r_pref:'Preference', r_rc_email:'Contact email', r_rc_tel:'Mobile',
+    assic_imp:'Insurance (net)', assic_iva:'VAT 22% insurance', suppl:'Suppl. over 30kg'
+  },
+  es: {
+    step:['Presupuesto','Remitente','Destinatario','Mercancia','Resumen','Contactos','Enviar'],
+    h1:'&#128230; Calcula el presupuesto', sub1:'Elige destino, introduce peso y dimensiones para obtener el precio al instante.',
+    lbl_dest:'Destino', lbl_dim:'Dimensiones del paquete', lbl_opt:'(opcionales)',
+    lung:'Largo (cm)', larg:'Ancho (cm)', alt:'Alto (cm)',
+    lbl_peso:'Peso y valor', peso_lbl:'Peso real (kg) *', valore_lbl:'Valor de la mercanc\u00eda (\u20ac)',
+    assic_chk:'A\u00f1adir seguro sobre el valor de la mercanc\u00eda',
+    assic_info:'Introduce el valor de la mercanc\u00eda para ver el coste del seguro.',
+    warn_vol:'&#9888; Peso volum\u00e9trico superior \u2014 tarifa calculada sobre el volum\u00e9trico.',
+    btn_calc:'Calcular presupuesto', prev_tit:'Presupuesto', btn_next1:'Continuar con la solicitud \u2192',
+    tab_en:'UE no UE', tab_re:'&#127758; Resto del mundo',
+    h2:'&#128100; Datos del remitente', sub2:'Qui\u00e9n env\u00eda el paquete. Tambi\u00e9n usados para facturaci\u00f3n.',
+    m_nome:'Nombre y apellidos *', m_az:'Raz\u00f3n social (opc.)', m_cf:'NIF / CIF / DNI *',
+    m_tel:'Tel\u00e9fono *', m_email:'Email *', m_addr:'Direcci\u00f3n del remitente',
+    via:'Calle y n\u00famero *', cap:'C\u00f3digo postal *', city:'Ciudad *', prov:'Prov.', country:'Pa\u00eds *',
+    ritiro_chk:'El lugar de recogida es diferente a la direcci\u00f3n del remitente',
+    ritiro_lbl:'Direcci\u00f3n de recogida', rref:'Persona de contacto (opc.)', rtel:'Tel. de contacto (opc.)',
+    h3:'&#128205; Datos del destinatario', sub3:'A qui\u00e9n debe entregarse el paquete.',
+    d_nome:'Nombre y apellidos *', d_az:'Raz\u00f3n social (opc.)', d_tel:'Tel\u00e9fono *', d_email:'Email (opc.)',
+    d_addr:'Direcci\u00f3n de entrega',
+    fatt_chk:'Los datos de facturaci\u00f3n son diferentes a los del remitente',
+    fatt_lbl:'Datos de facturaci\u00f3n', f_nome:'Nombre / Empresa *', f_cf:'NIF / CIF *',
+    femail:'Email de facturaci\u00f3n (opc.)', fsdi:'C\u00f3digo SDI / PEC (opc.)',
+    h4:'&#128218; Detalle de la mercanc\u00eda', sub4:'Indica el contenido del paquete. Necesario para aduanas y seguro.',
+    mc_desc:'Descripci\u00f3n del contenido *', mc_cat:'Categor\u00eda de mercanc\u00eda *', mc_qty:'N\u00famero de piezas (opc.)',
+    mc_note:'Notas especiales (opc.)',
+    cat_sel:'— Seleccionar —',
+    cats:['Ropa y textiles','Alimentos (no perecederos)','Art\u00edculos deportivos','Automotriz / Repuestos','Cosm\u00e9ticos y cuidado personal','Documentos / Material impreso','Electr\u00f3nica e inform\u00e1tica','Joyer\u00eda y accesorios','Juguetes','Libros y material impreso','Maquinaria y equipos','Muebles y decoraci\u00f3n','Instrumentos musicales','Otro'],
+    dog_tit:'&#127963; Declaraci\u00f3n aduanera', dog_sub:'Obligatoria para env\u00edos fuera de la UE. Introduce cada art\u00edculo con descripci\u00f3n, cantidad y valor unitario en euros.',
+    dog_h1:'Descripci\u00f3n del art\u00edculo', dog_h2:'Cant.', dog_h3:'Valor unit. (\u20ac)', dog_add:'+ A\u00f1adir art\u00edculo', dog_tot:'Valor total declarado',
+    h5:'&#9989; Resumen', sub5:'Revisa todos los datos antes de enviar la solicitud.',
+    h6:'&#128241; Contactos para pago y documentos', sub6:'Introduce los contactos para recibir el enlace de pago y el albar\u00e1n.',
+    rc_email:'Email *', rc_tel:'N\u00famero de m\u00f3vil *', rc_pref:'Preferencia de env\u00edo de documentos', rc_note:'Notas (opc.)',
+    pref1:'Solo email', pref2:'Solo SMS/WhatsApp', pref3:'Email + SMS/WhatsApp',
+    h7:'&#128229; Enviar solicitud', sub7:'Comprueba el importe y env\u00eda. Te contactaremos en los datos indicados.',
+    pay_tit:'Importe presupuestado', docs_to:'Documentos enviados a',
+    btn_invia:'&#128229; Enviar solicitud de env\u00edo',
+    pay_note:'Recibir\u00e1s el enlace de pago y el albar\u00e1n en los contactos indicados en pocas horas.',
+    esente:'&#9989; Operaci\u00f3n exenta de IVA art. 9 D.P.R. 633/72 \u2014 Exportaci\u00f3n',
+    ok_tit:'\u00a1Solicitud enviada!', ok_txt:'Hemos recibido tu solicitud de env\u00edo.\nTe contactaremos en pocas horas para confirmar la recogida e instrucciones de pago.',
+    ok_lbl:'&#128231; Confirmaci\u00f3n enviada a:', ok_btn:'Nueva solicitud',
+    back:'\u2190 Atr\u00e1s', next:'Siguiente \u2192', go_send:'Ir a enviar \u2192',
+    err_peso:'Introduce el peso del paquete.', err_assic:'Introduce el valor de la mercanc\u00eda para a\u00f1adir seguro.',
+    err_mnome:'Introduce nombre y apellidos del remitente.', err_mcf:'Introduce NIF/CIF del remitente.',
+    err_mtel:'Introduce el tel\u00e9fono del remitente.', err_memail:'Introduce el email del remitente.',
+    err_mvia:'Introduce la direcci\u00f3n del remitente.', err_mcap:'Introduce el c\u00f3digo postal.', err_mcity:'Introduce la ciudad.',
+    err_rvia:'Introduce la direcci\u00f3n de recogida.', err_rcap:'Introduce el c\u00f3digo postal de recogida.', err_rcity:'Introduce la ciudad de recogida.',
+    err_dnome:'Introduce nombre y apellidos del destinatario.', err_dtel:'Introduce el tel\u00e9fono del destinatario.',
+    err_dvia:'Introduce la direcci\u00f3n de entrega.', err_dcap:'Introduce el c\u00f3digo postal de destino.', err_dcity:'Introduce la ciudad de destino.', err_dpaese:'Introduce el pa\u00eds de destino.',
+    err_fnome:'Introduce el nombre para facturaci\u00f3n.', err_fcf:'Introduce NIF/CIF para facturaci\u00f3n.',
+    err_fvia:'Introduce la direcci\u00f3n de facturaci\u00f3n.', err_fcap:'Introduce el c\u00f3digo postal de facturaci\u00f3n.', err_fcity:'Introduce la ciudad de facturaci\u00f3n.',
+    err_desc:'Introduce la descripci\u00f3n del contenido.', err_cat:'Selecciona la categor\u00eda de mercanc\u00eda.', err_dog:'A\u00f1ade al menos un art\u00edculo en la declaraci\u00f3n aduanera.',
+    err_rcemail:'Introduce el email para el pago.', err_rctel:'Introduce el n\u00famero de m\u00f3vil.',
+    err_send:'Error al enviar. Reint\u00e9ntalo o cont\u00e1ctanos en preventivi@dhlstore.express',
+    err_conn:'Error de conexi\u00f3n. Comprueba tu conexi\u00f3n e int\u00e9ntalo de nuevo.',
+    tot:'Total', tot_iva:'Total (IVA seguro incluido)',
+    note:{italia:'Precios con IVA incluido. Entrega 24-48h laborables.',ue:'Precios con IVA incluido. Entrega 3-5 d\u00edas laborables.',eu_non_ue:'Exento IVA art.9. Entrega 5-8 d\u00edas. Aranceles a cargo del destinatario.',us_ca:'Exento IVA art.9. Entrega 7-10 d\u00edas.',resto:'Exento IVA art.9. Entrega 10-21 d\u00edas.'},
+    rc_prev:'&#128230; Presupuesto', rc_mit:'&#128100; Remitente', rc_rit:'&#128663; Lugar de recogida', rc_dest:'&#128205; Destinatario', rc_fatt:'&#128197; Facturaci\u00f3n', rc_merce:'&#128218; Mercanc\u00eda', rc_dog:'Lista aduanera', rc_dog_tot:'Total declarado',
+    inv_email:'Env\u00edo: ', send_loading:'Enviando...',
+    r_desc:'Descripci\u00f3n', r_cat:'Categor\u00eda', r_qty:'Cantidad', r_note:'Notas', r_tel:'Tel\u00e9fono', r_email:'Email', r_addr:'Direcci\u00f3n', r_azienda:'Empresa', r_cf:'NIF/CIF', r_ref:'Contacto', r_fatt_email:'Email facturaci\u00f3n', r_sdi:'SDI/PEC', r_consegna:'Entrega', r_pref:'Preferencia', r_rc_email:'Email contacto', r_rc_tel:'M\u00f3vil',
+    assic_imp:'Seguro (neto)', assic_iva:'IVA 22% seguro', suppl:'Suplem. >30kg'
+  }
+};
+
+var SC = [
+  {lb:'0-0.5 kg (Envelope)', mx:0.5,  it:27, ue:48,  en:55,  us:66,  re:70},
+  {lb:'0.5-1.5 kg (Box 2)',  mx:1.5,  it:31, ue:57,  en:69,  us:79,  re:100},
+  {lb:'1.5-2.5 kg (Box 3)',  mx:2.5,  it:37, ue:83,  en:89,  us:95,  re:125},
+  {lb:'2.5-5 kg (Box 4)',    mx:5,    it:43, ue:113, en:129, us:135, re:169},
+  {lb:'5-10 kg (Box 5)',     mx:10,   it:51, ue:149, en:179, us:189, re:259},
+  {lb:'10-15 kg (Box 6)',    mx:15,   it:61, ue:230, en:234, us:264, re:364},
+  {lb:'15-20 kg (Box 7)',    mx:20,   it:66, ue:244, en:294, us:344, re:470},
+  {lb:'20-25 kg (Box 8)',    mx:25,   it:73, ue:314, en:344, us:384, re:514},
+  {lb:'25-30 kg',            mx:30,   it:94, ue:364, en:404, us:454, re:620}
+];
+var ADD = {italia:4,ue:10,eu_non_ue:12,us_ca:12,resto:20};
+var NZ  = {italia:'Italia',ue:'Europa UE',eu_non_ue:'EU non UE',us_ca:'USA / Canada',resto:'Resto del mondo'};
+
+function g(id){ return document.getElementById(id); }
+function v(id){ var el=g(id); return el?el.value.trim():''; }
+function fmt(n){ return '\u20ac '+n.toFixed(2).replace('.',','); }
+function T(){ return TR[lingua]; }
+function isIva(){ return zona==='italia'||zona==='ue'; }
+function isExtraUE(){ return zona==='eu_non_ue'||zona==='us_ca'||zona==='resto'; }
+function zk(){ return zona==='italia'?'it':zona==='ue'?'ue':zona==='eu_non_ue'?'en':zona==='us_ca'?'us':'re'; }
+function txt(id,html){ var el=g(id); if(el) el.innerHTML=html; }
+function inp(id,ph){ var el=g(id); if(el) el.placeholder=ph; }
+
+
+
+function cambiaLingua(lg) {
+  lingua = lg;
+  document.querySelectorAll('.lang-pill').forEach(function(p){ p.classList.remove('active'); });
+  g('pill-'+lg).classList.add('active');
+  applicaLingua();
+  // Aggiorna i risultati se visibili
+  if (g('res1').classList.contains('show')) {
+    g('res1').classList.remove('show');
+    g('btn-n1').style.display='none';
+  }
+}
+
+function applicaLingua() {
+  var t = T();
+  // Stepper labels
+  for (var i=0;i<7;i++) txt('sl'+(i+1), t.step[i]);
+  // Step 1
+  txt('t-h1',t.h1); txt('t-sub1',t.sub1);
+  txt('t-lbl-dest',t.lbl_dest); txt('t-lbl-dim',t.lbl_dim); txt('t-lbl-opt',t.lbl_opt);
+  txt('t-lung',t.lung); txt('t-larg',t.larg); txt('t-alt',t.alt);
+  txt('t-lbl-peso',t.lbl_peso); txt('t-peso-lbl',t.peso_lbl); txt('t-valore-lbl',t.valore_lbl);
+  txt('t-assic-chk',t.assic_chk); txt('assic-info',t.assic_info);
+  txt('warn-vol',t.warn_vol); txt('t-btn-calc',t.btn_calc);
+  txt('t-prev-tit',t.prev_tit); txt('btn-n1',t.btn_next1);
+  txt('tab-eu_non_ue',t.tab_en); txt('tab-resto',t.tab_re);
+  // Step 2
+  txt('t-h2',t.h2); txt('t-sub2',t.sub2);
+  txt('t-m-nome-lbl',t.m_nome); txt('t-m-az-lbl',t.m_az);
+  txt('t-m-cf-lbl',t.m_cf); txt('t-m-tel-lbl',t.m_tel); txt('t-m-email-lbl',t.m_email);
+  txt('t-m-addr-lbl',t.m_addr);
+  txt('t-via-lbl',t.via); txt('t-cap-lbl',t.cap); txt('t-city-lbl',t.city); txt('t-prov-lbl',t.prov); txt('t-country-lbl',t.country);
+  txt('t-ritiro-chk',t.ritiro_chk); txt('t-ritiro-lbl',t.ritiro_lbl);
+  txt('t-rvia-lbl',t.via); txt('t-rcap-lbl',t.cap); txt('t-rcity-lbl',t.city); txt('t-rprov-lbl',t.prov); txt('t-rcountry-lbl',t.country);
+  txt('t-rref-lbl',t.rref); txt('t-rtel-lbl',t.rtel);
+  txt('t-back2',t.back); txt('t-next2',t.next);
+  // Step 3
+  txt('t-h3',t.h3); txt('t-sub3',t.sub3);
+  txt('t-d-nome-lbl',t.d_nome); txt('t-d-az-lbl',t.d_az);
+  txt('t-d-tel-lbl',t.d_tel); txt('t-d-email-lbl',t.d_email);
+  txt('t-d-addr-lbl',t.d_addr);
+  txt('t-dvia-lbl',t.via); txt('t-dcap-lbl',t.cap); txt('t-dcity-lbl',t.city); txt('t-dprov-lbl',t.prov); txt('t-dcountry-lbl',t.country);
+  txt('t-fatt-chk',t.fatt_chk); txt('t-fatt-lbl',t.fatt_lbl);
+  txt('t-f-nome-lbl',t.f_nome); txt('t-f-cf-lbl',t.f_cf);
+  txt('t-fvia-lbl',t.via); txt('t-fcap-lbl',t.cap); txt('t-fcity-lbl',t.city); txt('t-fprov-lbl',t.prov); txt('t-fcountry-lbl',t.country);
+  txt('t-femail-lbl',t.femail); txt('t-fsdi-lbl',t.fsdi);
+  txt('t-back3',t.back); txt('t-next3',t.next);
+  // Step 4
+  txt('t-h4',t.h4); txt('t-sub4',t.sub4);
+  txt('t-mc-desc-lbl',t.mc_desc); txt('t-mc-cat-lbl',t.mc_cat);
+  txt('t-mc-qty-lbl',t.mc_qty); txt('t-mc-note-lbl',t.mc_note);
+  txt('t-cat-sel',t.cat_sel);
+  for (var ci=0;ci<14;ci++){
+    var cel=g('t-cat'+(ci+1));
+    if(cel){cel.textContent=t.cats[ci];cel.value=t.cats[ci];}
+  }
+  txt('t-dog-tit',t.dog_tit); txt('t-dog-sub',t.dog_sub);
+  txt('t-dog-h1',t.dog_h1); txt('t-dog-h2',t.dog_h2); txt('t-dog-h3',t.dog_h3);
+  txt('t-dog-add',t.dog_add); txt('t-dog-tot-lbl',t.dog_tot);
+  txt('t-back4',t.back); txt('t-next4',t.next);
+  // Step 5
+  txt('t-h5',t.h5); txt('t-sub5',t.sub5);
+  txt('t-back5',t.back); txt('t-next5',t.go_send);
+  // Step 6
+  txt('t-h6',t.h6); txt('t-sub6',t.sub6);
+  txt('t-rc-email-lbl',t.rc_email); txt('t-rc-tel-lbl',t.rc_tel);
+  txt('t-rc-pref-lbl',t.rc_pref); txt('t-rc-note-lbl',t.rc_note);
+  txt('t-pref1',t.pref1); txt('t-pref2',t.pref2); txt('t-pref3',t.pref3);
+  txt('t-back6',t.back); txt('t-next6',t.next);
+  // Step 7
+  txt('t-h7',t.h7); txt('t-sub7',t.sub7);
+  txt('t-pay-tit',t.pay_tit); txt('t-docs-to',t.docs_to);
+  txt('btn-invia',t.btn_invia); txt('t-pay-note',t.pay_note);
+  txt('t-back7',t.back);
+  // Successo
+  txt('t-ok-tit',t.ok_tit); txt('t-ok-txt',t.ok_txt.replace('\n','<br>'));
+  txt('t-ok-lbl',t.ok_lbl); txt('t-ok-btn',t.ok_btn);
+  // Aggiorna NZ con lingua corrente
+  NZ = {
+    italia: lingua==='it'?'Italia': lingua==='en'?'Italy':'Italia',
+    ue: lingua==='it'?'Europa UE': lingua==='en'?'Europe EU':'Europa UE',
+    eu_non_ue: lingua==='it'?'EU non UE': lingua==='en'?'EU non-EU':'UE no UE',
+    us_ca: 'USA / Canada',
+    resto: lingua==='it'?'Resto del mondo': lingua==='en'?'Rest of the world':'Resto del mundo'
+  };
+}
+
+function setZona(z) {
+  zona = z;
+  var ids = ['italia','ue','eu_non_ue','us_ca','resto'];
+  for (var i=0;i<ids.length;i++) {
+    var tab=g('tab-'+ids[i]);
+    if(tab) tab.className='tab'+(ids[i]===z?' active':'');
+  }
+  g('res1').classList.remove('show');
+  g('btn-n1').style.display='none';
+  g('warn-vol').style.display='none';
+  g('err1').style.display='none';
+  updAssic();
+  aggiornaDogana();
+}
+
+function togChk(chkId,boxId,cb){
+  var c=g(chkId); c.checked=!c.checked;
+  g(boxId).classList.toggle('show',c.checked);
+  if(cb) cb();
+}
+
+function assic(val){
+  if(!val||val<=0) return null;
+  var imp=val<=1100?11:val*0.01;
+  var iva=isIva()?imp*0.22:0;
+  var sog=val<=1100?'1.100':'1%';
+  var ivs=isIva()?' + IVA 22%':' '+( lingua==='it'?'esente IVA':lingua==='en'?'VAT exempt':'exento IVA');
+  return{imp:imp,iva:iva,tot:imp+iva,iva_si:isIva(),lb:'Assicurazione/Insurance/Seguro ('+sog+ivs+')'};
+}
+
+function updAssic(){
+  if(!g('chk-assic').checked) return;
+  var val=parseFloat(g('valore').value)||0;
+  var info=g('assic-info');
+  var t=T();
+  if(!val){info.innerHTML=t.assic_info;return;}
+  var a=assic(val);
+  info.textContent='Costo: '+fmt(a.imp)+(a.iva_si?' + IVA 22% = '+fmt(a.tot):'');
+}
+
+function aggiornaDogana(){
+  var box=g('dog-box');
+  if(isExtraUE()){
+    box.classList.add('show');
+    if(dogCount===0) addDogRow();
+  } else {
+    box.classList.remove('show');
+  }
+}
+
+function addDogRow(){
+  dogCount++;
+  var id='dr'+dogCount;
+  var div=document.createElement('div');
+  div.className='dog-row'; div.id=id;
+  div.innerHTML=
+    '<input type="text" id="'+id+'d" placeholder="'+T().dog_h1+'">' +
+    '<input type="number" id="'+id+'q" min="1" placeholder="1" oninput="calcDogTot()">' +
+    '<input type="number" id="'+id+'v" min="0" step="0.01" placeholder="0,00" oninput="calcDogTot()">' +
+    '<button type="button" class="btn-del" onclick="delDogRow(\''+id+'\')">\u00d7</button>';
+  g('dog-rows').appendChild(div);
+}
+
+function delDogRow(id){
+  var el=g(id); if(el) el.parentNode.removeChild(el);
+  calcDogTot();
+}
+
+function calcDogTot(){
+  var rows=g('dog-rows').querySelectorAll('.dog-row');
+  var tot=0;
+  for(var i=0;i<rows.length;i++){
+    var q=parseFloat(rows[i].querySelector('[id$="q"]').value)||0;
+    var vl=parseFloat(rows[i].querySelector('[id$="v"]').value)||0;
+    tot+=q*vl;
+  }
+  var totEl=g('dog-tot');
+  if(tot>0){totEl.style.display='flex';g('dog-tot-val').textContent=fmt(tot);}
+  else totEl.style.display='none';
+  return tot;
+}
+
+function getDogList(){
+  var rows=g('dog-rows').querySelectorAll('.dog-row'); var list=[];
+  for(var i=0;i<rows.length;i++){
+    var desc=rows[i].querySelector('[id$="d"]').value.trim();
+    var qty=parseFloat(rows[i].querySelector('[id$="q"]').value)||0;
+    var val=parseFloat(rows[i].querySelector('[id$="v"]').value)||0;
+    if(desc&&qty&&val) list.push({desc:desc,qty:qty,val:val,tot:qty*val});
+  }
+  return list;
+}
+
+function calcola(){
+  var t=T();
+  g('err1').style.display='none';
+  var l=parseFloat(g('lung').value)||0,w=parseFloat(g('larg').value)||0,h=parseFloat(g('alt').value)||0;
+  var pr=parseFloat(g('peso').value)||0;
+  var val=parseFloat(g('valore').value)||0;
+  var ca=g('chk-assic').checked;
+  if(!pr){showE('err1',t.err_peso);return;}
+  if(ca&&!val){showE('err1',t.err_assic);return;}
+  var pv=0,uv=false;
+  if(l&&w&&h){pv=(l*w*h)/5000;uv=pv>pr;}
+  var pf=Math.max(pr,pv);
+  g('warn-vol').style.display=uv?'block':'none';
+  var sc=null,ac=0,k=zk();
+  if(pf<=30){for(var i=0;i<SC.length;i++){if(pf<=SC[i].mx){sc=SC[i];break;}}}
+  else{sc=SC[SC.length-1];ac=Math.ceil(pf-30)*ADD[zona];}
+  if(!sc){showE('err1',t.err_peso);return;}
+  var base=sc[k],tot=base+ac;
+  var html='<div class="prow"><span class="plbl">'+sc.lb+' \u2014 '+NZ[zona]+'</span><span class="pval">'+fmt(base)+'</span></div>';
+  if(ac>0) html+='<div class="prow"><span class="plbl">'+t.suppl+' ('+Math.ceil(pf-30)+'kg x '+fmt(ADD[zona])+')</span><span class="pval">'+fmt(ac)+'</span></div>';
+  var ad=null;
+  if(ca&&val){
+    ad=assic(val);tot+=ad.tot;
+    if(ad.iva_si){
+      html+='<div class="prow"><span class="plbl">'+t.assic_imp+'</span><span class="pval">'+fmt(ad.imp)+'</span></div>';
+      html+='<div class="prow"><span class="plbl">'+t.assic_iva+'</span><span class="pval">'+fmt(ad.iva)+'</span></div>';
+    }else{
+      html+='<div class="prow"><span class="plbl">'+t.assic_imp+'</span><span class="pval">'+fmt(ad.imp)+'</span></div>';
+    }
+  }
+  if(uv) html+='<div class="prow"><span class="plbl" style="font-size:11px;color:#9ca3af">Vol: '+pv.toFixed(2)+'kg / '+t.peso_lbl.replace(' *','')+': '+pr.toFixed(2)+'kg</span></div>';
+  var civaf=ca&&val&&isIva();
+  g('r-rows').innerHTML=html;
+  g('r-tval').textContent=fmt(tot);
+  g('r-tlbl').textContent=civaf?t.tot_iva:t.tot;
+  g('r-zona').textContent=NZ[zona];
+  g('r-note').textContent=t.note[zona];
+  g('res1').classList.add('show');
+  g('btn-n1').style.display='block';
+  prev={zona:zona,nz:NZ[zona],sc:sc,base:base,ac:ac,ad:ad,tot:tot,civaf:civaf,pr:pr,pf:pf,uv:uv,pv:pv,val:val,esente:!isIva()};
+}
+
+function goStep(n){
+  g('p'+stepNow).classList.remove('show');
+  if(n===5) buildRecap();
+  if(n===7) buildPay();
+  var target=n<=7?g('p'+n):g('p-ok');
+  target.classList.add('show');
+  stepNow=n; updStepper(n); window.scrollTo(0,0);
+}
+
+function updStepper(n){
+  for(var i=1;i<=7;i++){
+    var s=g('s'+i),sc=g('sc'+i);
+    s.classList.remove('active','done');
+    if(i<n){s.classList.add('done');sc.textContent='\u2713';}
+    else if(i===n){s.classList.add('active');sc.textContent=i;}
+    else sc.textContent=i;
+    if(i<7) g('l'+i).classList.toggle('done',i<n);
+  }
+}
+
+function showE(id,msg){var e=g(id);e.textContent=msg;e.style.display='block';}
+function req(id,eid,msg){if(!v(id)){g(id).focus();showE(eid,msg);return false;}return true;}
+
+function valida(n){
+  var t=T(),eid='err'+n;
+  g(eid).style.display='none';
+  if(n===2){
+    if(!req('m-nome',eid,t.err_mnome)) return;
+    if(!req('m-cf',eid,t.err_mcf)) return;
+    if(!req('m-tel',eid,t.err_mtel)) return;
+    if(!req('m-email',eid,t.err_memail)) return;
+    if(!req('m-via',eid,t.err_mvia)) return;
+    if(!req('m-cap',eid,t.err_mcap)) return;
+    if(!req('m-citta',eid,t.err_mcity)) return;
+    if(g('chk-ritiro').checked){
+      if(!req('r-via',eid,t.err_rvia)) return;
+      if(!req('r-cap',eid,t.err_rcap)) return;
+      if(!req('r-citta',eid,t.err_rcity)) return;
+    }
+  }
+  if(n===3){
+    if(!req('d-nome',eid,t.err_dnome)) return;
+    if(!req('d-tel',eid,t.err_dtel)) return;
+    if(!req('d-via',eid,t.err_dvia)) return;
+    if(!req('d-cap',eid,t.err_dcap)) return;
+    if(!req('d-citta',eid,t.err_dcity)) return;
+    if(!req('d-paese',eid,t.err_dpaese)) return;
+    if(g('chk-fatt').checked){
+      if(!req('f-nome',eid,t.err_fnome)) return;
+      if(!req('f-cf',eid,t.err_fcf)) return;
+      if(!req('f-via',eid,t.err_fvia)) return;
+      if(!req('f-cap',eid,t.err_fcap)) return;
+      if(!req('f-citta',eid,t.err_fcity)) return;
+    }
+  }
+  if(n===4){
+    if(!req('mc-desc',eid,t.err_desc)) return;
+    if(!g('mc-cat').value){showE(eid,t.err_cat);return;}
+    if(isExtraUE()&&getDogList().length===0){showE(eid,t.err_dog);return;}
+  }
+  goStep(n+1);
+}
+
+function validaRecapiti(){
+  var t=T();
+  g('err6').style.display='none';
+  if(!v('rc-email')){g('rc-email').focus();showE('err6',t.err_rcemail);return;}
+  if(!v('rc-tel')){g('rc-tel').focus();showE('err6',t.err_rctel);return;}
+  goStep(7);
+}
+
+function rr(lbl,val){return '<div class="rrow"><span>'+lbl+'</span><span>'+val+'</span></div>';}
+
+function buildRecap(){
+  var t=T(),p=prev;
+  var h='<div class="recap-t">'+t.rc_prev+' \u2014 '+p.nz+'</div>';
+  h+=rr(p.sc.lb,fmt(p.base));
+  if(p.ac>0) h+=rr(t.suppl,fmt(p.ac));
+  if(p.ad){
+    if(p.ad.iva_si){h+=rr(t.assic_imp,fmt(p.ad.imp));h+=rr(t.assic_iva,fmt(p.ad.iva));}
+    else h+=rr(t.assic_imp,fmt(p.ad.imp));
+  }
+  h+='<div class="rtot"><span>'+(p.civaf?t.tot_iva:t.tot)+'</span><span>'+fmt(p.tot)+'</span></div>';
+  if(p.esente) h+='<div style="font-size:11px;color:#047857;margin-top:6px">'+t.esente+'</div>';
+  g('rc-prev').innerHTML=h;
+
+  var m='<div class="recap-t">'+t.rc_mit+'</div>';
+  m+=rr(t.r_desc.replace('Descri','Nome/Name/Nombre'),v('m-nome'));
+  if(v('m-azienda')) m+=rr(t.r_azienda,v('m-azienda'));
+  m+=rr(t.r_cf,v('m-cf'));m+=rr(t.r_tel,v('m-tel'));m+=rr(t.r_email,v('m-email'));
+  m+=rr(t.r_addr,v('m-via')+', '+v('m-cap')+' '+v('m-citta')+(v('m-prov')?' ('+v('m-prov')+')':'')+' \u2014 '+v('m-paese'));
+  g('rc-mit').innerHTML=m;
+
+  if(g('chk-ritiro').checked){
+    var ri='<div class="recap-t">'+t.rc_rit+'</div>';
+    ri+=rr(t.r_addr,v('r-via')+', '+v('r-cap')+' '+v('r-citta')+(v('r-prov')?' ('+v('r-prov')+')':'')+' \u2014 '+v('r-paese'));
+    if(v('r-ref')) ri+=rr(t.r_ref,v('r-ref'));
+    if(v('r-tel')) ri+=rr(t.r_tel,v('r-tel'));
+    g('rc-rit').innerHTML=ri;g('rc-rit').style.display='';
+  }else g('rc-rit').style.display='none';
+
+  var d='<div class="recap-t">'+t.rc_dest+'</div>';
+  d+=rr(t.r_desc.replace('Descri','Nome/Name/Nombre'),v('d-nome'));
+  if(v('d-azienda')) d+=rr(t.r_azienda,v('d-azienda'));
+  d+=rr(t.r_tel,v('d-tel'));
+  if(v('d-email')) d+=rr(t.r_email,v('d-email'));
+  d+=rr(t.r_consegna,v('d-via')+', '+v('d-cap')+' '+v('d-citta')+(v('d-prov')?' ('+v('d-prov')+')':'')+' \u2014 '+v('d-paese'));
+  g('rc-dest').innerHTML=d;
+
+  if(g('chk-fatt').checked){
+    var f='<div class="recap-t">'+t.rc_fatt+'</div>';
+    f+=rr(t.r_cf,v('f-cf'));f+=rr(t.r_addr,v('f-via')+', '+v('f-cap')+' '+v('f-citta')+(v('f-prov')?' ('+v('f-prov')+')':'')+' \u2014 '+v('f-paese'));
+    if(v('f-email')) f+=rr(t.r_fatt_email,v('f-email'));
+    if(v('f-sdi')) f+=rr(t.r_sdi,v('f-sdi'));
+    g('rc-fatt').innerHTML=f;g('rc-fatt').style.display='';
+  }else g('rc-fatt').style.display='none';
+
+  var mc='<div class="recap-t">'+t.rc_merce+'</div>';
+  mc+=rr(t.r_desc,v('mc-desc'));mc+=rr(t.r_cat,g('mc-cat').value);
+  if(v('mc-qty')) mc+=rr(t.r_qty,v('mc-qty')+' pz');
+  if(v('mc-note')) mc+=rr(t.r_note,v('mc-note'));
+  if(isExtraUE()){
+    var dl=getDogList();
+    if(dl.length>0){
+      mc+='<div style="font-size:11px;font-weight:700;color:#9a3412;text-transform:uppercase;letter-spacing:.06em;margin:8px 0 4px">'+t.rc_dog+'</div>';
+      for(var i=0;i<dl.length;i++) mc+=rr(dl[i].desc+' x'+dl[i].qty,fmt(dl[i].tot));
+      mc+='<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#9a3412;padding-top:6px;border-top:1px solid #fed7aa;margin-top:4px"><span>'+t.rc_dog_tot+'</span><span>'+fmt(calcDogTot())+'</span></div>';
+    }
+  }
+  g('rc-merce').innerHTML=mc;
+}
+
+function buildPay(){
+  var t=T(),p=prev;
+  g('pay-amt').textContent=fmt(p.tot);
+  var desc=p.nz+' \u2014 '+p.sc.lb;
+  if(p.ad) desc+=' + '+t.assic_imp;
+  g('pay-desc').textContent=desc;
+  g('esente-msg').innerHTML=t.esente;
+  g('esente-msg').style.display=p.esente?'block':'none';
+  g('conf-email').textContent=v('rc-email');
+  g('conf-tel').textContent=v('rc-tel');
+  var pm={email:t.pref1,sms:t.pref2,entrambi:t.pref3};
+  g('conf-pref').textContent=t.inv_email+(pm[g('rc-pref').value]||'');
+}
+
+function componiEmail(){
+  var t=T(),p=prev,r=[];
+  r.push('[Lingua/Language: '+(lingua==='it'?'Italiano':lingua==='en'?'English':'Espa\u00f1ol')+']');
+  r.push('=== '+t.prev_tit.toUpperCase()+' ===');
+  r.push('Destinazione/Destination: '+p.nz);
+  r.push('Fascia peso: '+p.sc.lb);
+  r.push(t.r_desc+' base: '+fmt(p.base));
+  if(p.ac>0) r.push(t.suppl+': '+fmt(p.ac));
+  if(p.ad){
+    if(p.ad.iva_si){r.push(t.assic_imp+': '+fmt(p.ad.imp));r.push(t.assic_iva+': '+fmt(p.ad.iva));}
+    else r.push(t.assic_imp+': '+fmt(p.ad.imp));
+  }
+  r.push('TOTALE/TOTAL: '+fmt(p.tot)+(p.civaf?' ('+t.tot_iva+')':''));
+  if(p.esente) r.push('IVA: '+t.esente);
+  r.push('');
+  r.push('=== '+t.rc_mit.replace(/&#\d+;/g,'').trim().toUpperCase()+' ===');
+  r.push('Nome/Name: '+v('m-nome'));
+  if(v('m-azienda')) r.push(t.r_azienda+': '+v('m-azienda'));
+  r.push(t.r_cf+': '+v('m-cf'));r.push(t.r_tel+': '+v('m-tel'));r.push(t.r_email+': '+v('m-email'));
+  r.push(t.r_addr+': '+v('m-via')+', '+v('m-cap')+' '+v('m-citta')+(v('m-prov')?' ('+v('m-prov')+')':'')+' - '+v('m-paese'));
+  r.push('');
+  if(g('chk-ritiro').checked){
+    r.push('=== '+t.rc_rit.replace(/&#\d+;/g,'').trim().toUpperCase()+' ===');
+    r.push(t.r_addr+': '+v('r-via')+', '+v('r-cap')+' '+v('r-citta')+(v('r-prov')?' ('+v('r-prov')+')':'')+' - '+v('r-paese'));
+    if(v('r-ref')) r.push(t.r_ref+': '+v('r-ref'));
+    if(v('r-tel')) r.push(t.r_tel+': '+v('r-tel'));
+    r.push('');
+  }
+  r.push('=== '+t.rc_dest.replace(/&#\d+;/g,'').trim().toUpperCase()+' ===');
+  r.push('Nome/Name: '+v('d-nome'));
+  if(v('d-azienda')) r.push(t.r_azienda+': '+v('d-azienda'));
+  r.push(t.r_tel+': '+v('d-tel'));
+  if(v('d-email')) r.push(t.r_email+': '+v('d-email'));
+  r.push(t.r_consegna+': '+v('d-via')+', '+v('d-cap')+' '+v('d-citta')+(v('d-prov')?' ('+v('d-prov')+')':'')+' - '+v('d-paese'));
+  r.push('');
+  if(g('chk-fatt').checked){
+    r.push('=== '+t.rc_fatt.replace(/&#\d+;/g,'').trim().toUpperCase()+' ===');
+    r.push(t.r_cf+': '+v('f-cf'));
+    r.push(t.r_addr+': '+v('f-via')+', '+v('f-cap')+' '+v('f-citta')+(v('f-prov')?' ('+v('f-prov')+')':'')+' - '+v('f-paese'));
+    if(v('f-email')) r.push(t.r_fatt_email+': '+v('f-email'));
+    if(v('f-sdi')) r.push(t.r_sdi+': '+v('f-sdi'));
+    r.push('');
+  }
+  r.push('=== '+t.rc_merce.replace(/&#\d+;/g,'').trim().toUpperCase()+' ===');
+  r.push(t.r_desc+': '+v('mc-desc'));r.push(t.r_cat+': '+g('mc-cat').value);
+  if(v('mc-qty')) r.push(t.r_qty+': '+v('mc-qty'));
+  if(v('mc-note')) r.push(t.r_note+': '+v('mc-note'));
+  if(isExtraUE()){
+    var dl=getDogList();
+    if(dl.length>0){
+      r.push('');r.push('=== '+t.dog_tit.replace(/&#\d+;/g,'').trim().toUpperCase()+' ===');
+      var totDog=0;
+      for(var i=0;i<dl.length;i++){r.push(dl[i].desc+' | '+dl[i].qty+' | '+fmt(dl[i].val)+' | '+fmt(dl[i].tot));totDog+=dl[i].tot;}
+      r.push(t.rc_dog_tot+': '+fmt(totDog));
+    }
+  }
+  r.push('');
+  r.push('=== RECAPITI PAGAMENTO / PAYMENT CONTACTS ===');
+  r.push(t.r_email+': '+v('rc-email'));r.push(t.r_tel+': '+v('rc-tel'));
+  var pm={email:t.pref1,sms:t.pref2,entrambi:t.pref3};
+  r.push(t.r_pref+': '+(pm[g('rc-pref').value]||''));
+  if(v('rc-note')) r.push(t.r_note+': '+v('rc-note'));
+  return r.join('\n');
+}
+
+function inviaRichiesta(){
+  var t=T(),btn=g('btn-invia');
+  btn.disabled=true;btn.textContent=t.send_loading;
+  g('err7').style.display='none';
+  var payload={
+    _subject:'Richiesta ['+lingua.toUpperCase()+'] '+prev.nz+' - '+v('m-nome'),
+    _replyto:v('rc-email'),_cc:'preventivi@dhlstore.express',
+    messaggio:componiEmail(),
+    nome:v('m-nome'),email_mittente:v('m-email'),
+    email_recapito:v('rc-email'),cellulare_recapito:v('rc-tel'),
+    destinazione:prev.nz,totale:fmt(prev.tot),lingua:lingua
+  };
+  fetch('https://formspree.io/f/'+FORMSPREE_ID,{
+    method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify(payload)
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.ok!==false){
+      g('ok-email').textContent=v('rc-email');
+      g('p7').classList.remove('show');g('p-ok').classList.add('show');
+      updStepper(8);window.scrollTo(0,0);
+    }else{
+      btn.disabled=false;btn.innerHTML=t.btn_invia;showE('err7',t.err_send);
+    }
+  })
+  .catch(function(){
+    btn.disabled=false;btn.innerHTML=t.btn_invia;showE('err7',t.err_conn);
+  });
+}
+// Avvio automatico in italiano
+applicaLingua();
+updStepper(1);
+</script>
